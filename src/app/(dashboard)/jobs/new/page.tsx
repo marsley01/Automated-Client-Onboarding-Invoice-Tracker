@@ -195,10 +195,22 @@ export default function NewJobPage() {
                     label="Category"
                     options={[
                       { value: "general", label: "General" },
-                      { value: "repair", label: "Repair" },
+                      { value: "consulting", label: "Consulting" },
                       { value: "design", label: "Design" },
                       { value: "development", label: "Development" },
-                      { value: "consulting", label: "Consulting" },
+                      { value: "marketing", label: "Marketing" },
+                      { value: "writing", label: "Writing" },
+                      { value: "financial", label: "Financial" },
+                      { value: "legal", label: "Legal" },
+                      { value: "repair", label: "Repair" },
+                      { value: "maintenance", label: "Maintenance" },
+                      { value: "cleaning", label: "Cleaning" },
+                      { value: "photography", label: "Photography" },
+                      { value: "education", label: "Education" },
+                      { value: "health", label: "Health" },
+                      { value: "logistics", label: "Logistics" },
+                      { value: "event", label: "Event" },
+                      { value: "other", label: "Other" },
                     ]}
                     {...register("category")}
                   />

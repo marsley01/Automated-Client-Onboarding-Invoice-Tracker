@@ -25,7 +25,7 @@ export default function SignUpPage() {
 
   const step2 = useForm<SignupStep2Data>({
     resolver: zodResolver(signupStep2Schema),
-    defaultValues: { city: "Nairobi", business_type: "repair_shop" },
+    defaultValues: { city: "Nairobi", business_type: "other" },
   });
 
   const [step1Data, setStep1Data] = useState<SignupStep1Data | null>(null);
@@ -107,10 +107,22 @@ export default function SignUpPage() {
               <Select
                 label="Business type"
                 options={[
+                  { value: "agency", label: "Agency" },
+                  { value: "freelancer", label: "Freelancer / Sole Proprietor" },
+                  { value: "consultant", label: "Consultant" },
+                  { value: "tech", label: "Tech / Software" },
+                  { value: "creative", label: "Creative / Design" },
+                  { value: "financial_services", label: "Financial Services" },
+                  { value: "legal", label: "Legal Services" },
+                  { value: "education", label: "Education / Training" },
+                  { value: "healthcare", label: "Healthcare / Wellness" },
                   { value: "repair_shop", label: "Repair Shop" },
-                  { value: "design_agency", label: "Design Agency" },
-                  { value: "freelancer", label: "Freelancer" },
-                  { value: "consulting_firm", label: "Consulting Firm" },
+                  { value: "retail", label: "Retail / E-commerce" },
+                  { value: "restaurant", label: "Restaurant / Hospitality" },
+                  { value: "manufacturing", label: "Manufacturing" },
+                  { value: "logistics", label: "Logistics / Transport" },
+                  { value: "real_estate", label: "Real Estate" },
+                  { value: "cleaning", label: "Cleaning / Maintenance" },
                   { value: "other", label: "Other" },
                 ]}
                 {...step2.register("business_type")}

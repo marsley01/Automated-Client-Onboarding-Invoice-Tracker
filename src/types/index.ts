@@ -38,7 +38,7 @@ export interface Client {
   updated_at: string;
 }
 
-export type JobCategory = "repair" | "design" | "development" | "consulting" | "general";
+export type JobCategory = "general" | "consulting" | "design" | "development" | "marketing" | "writing" | "financial" | "legal" | "repair" | "maintenance" | "cleaning" | "photography" | "education" | "health" | "logistics" | "event" | "other";
 export type JobStatus = "received" | "diagnosed" | "in_progress" | "quality_check" | "ready" | "delivered" | "cancelled";
 export type JobPriority = "low" | "normal" | "high" | "urgent";
 
@@ -155,7 +155,7 @@ export interface ReminderLog {
   sent_at: string;
 }
 
-export type BusinessType = "repair_shop" | "design_agency" | "freelancer" | "consulting_firm" | "other";
+export type BusinessType = "agency" | "freelancer" | "consultant" | "repair_shop" | "retail" | "restaurant" | "tech" | "manufacturing" | "healthcare" | "education" | "logistics" | "real_estate" | "creative" | "financial_services" | "legal" | "cleaning" | "other";
 
 export interface SignupStep1 {
   name: string;

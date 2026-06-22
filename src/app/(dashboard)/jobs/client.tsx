@@ -69,11 +69,23 @@ export default function JobsClient({ jobs }: JobsClientProps) {
               onChange={(e) => setCategoryFilter(e.target.value as any)}
               options={[
                 { value: "all", label: "All Categories" },
-                { value: "repair", label: "Repair" },
+                { value: "general", label: "General" },
+                { value: "consulting", label: "Consulting" },
                 { value: "design", label: "Design" },
                 { value: "development", label: "Development" },
-                { value: "consulting", label: "Consulting" },
-                { value: "general", label: "General" },
+                { value: "marketing", label: "Marketing" },
+                { value: "writing", label: "Writing" },
+                { value: "financial", label: "Financial" },
+                { value: "legal", label: "Legal" },
+                { value: "repair", label: "Repair" },
+                { value: "maintenance", label: "Maintenance" },
+                { value: "cleaning", label: "Cleaning" },
+                { value: "photography", label: "Photography" },
+                { value: "education", label: "Education" },
+                { value: "health", label: "Health" },
+                { value: "logistics", label: "Logistics" },
+                { value: "event", label: "Event" },
+                { value: "other", label: "Other" },
               ]}
               className="w-40"
             />

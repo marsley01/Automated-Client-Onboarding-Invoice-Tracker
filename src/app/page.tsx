@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Link as LinkIcon, FileText, Clock, Bell, User, CreditCard, CheckCircle, Eye } from "@phosphor-icons/react";
+import { ArrowRight, Link as LinkIcon, FileText, Clock, Bell, User, CreditCard, CheckCircle, Eye, Buildings, CurrencyCircleDollar, Star, Rocket } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 
 const features = [
@@ -105,20 +105,26 @@ export default function LandingPage() {
       </section>
 
       {/* ─── Stats ─── */}
-      <section className="border-t border-[var(--border)] py-14 bg-white/40">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section className="border-t border-[var(--border)] bg-white">
+        <div className="max-w-6xl mx-auto px-6 py-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { n: "100+", l: "Businesses onboarded" },
-              { n: "KES 2M+", l: "Invoiced this month" },
-              { n: "4.9★", l: "Client satisfaction" },
-              { n: "98%", l: "On-time delivery" },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="text-2xl font-bold text-[var(--text-primary)] [font-variant-numeric:tabular-nums]">{s.n}</p>
-                <p className="text-xs text-[var(--text-muted)] mt-1">{s.l}</p>
-              </div>
-            ))}
+              { n: "100+", l: "Businesses onboarded", icon: Buildings },
+              { n: "KES 2M+", l: "Invoiced this month", icon: CurrencyCircleDollar },
+              { n: "4.9\u2605", l: "Client satisfaction", icon: Star },
+              { n: "98%", l: "On-time delivery", icon: Rocket },
+            ].map((s) => {
+              const Icon = s.icon;
+              return (
+                <div key={s.l} className="bg-zinc-50/80 rounded-xl px-5 py-6 text-center border border-zinc-100">
+                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mx-auto mb-3">
+                    <Icon weight="duotone" className="text-lg text-[var(--primary)]" />
+                  </div>
+                  <p className="text-2xl font-bold text-[var(--text-primary)] [font-variant-numeric:tabular-nums]">{s.n}</p>
+                  <p className="text-xs text-[var(--text-muted)] mt-1">{s.l}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

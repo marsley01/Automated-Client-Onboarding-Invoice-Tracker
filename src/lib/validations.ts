@@ -8,7 +8,7 @@ export const signupStep1Schema = z.object({
 
 export const signupStep2Schema = z.object({
   business_name: z.string().min(1, "Business name is required"),
-  business_type: z.enum(["repair_shop", "design_agency", "freelancer", "consulting_firm", "other"]),
+  business_type: z.enum(["agency", "freelancer", "consultant", "repair_shop", "retail", "restaurant", "tech", "manufacturing", "healthcare", "education", "logistics", "real_estate", "creative", "financial_services", "legal", "cleaning", "other"]),
   phone: z.string().optional(),
   city: z.string(),
 });
@@ -20,7 +20,7 @@ export const signinSchema = z.object({
 
 export const createJobSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  category: z.enum(["repair", "design", "development", "consulting", "general"]),
+  category: z.enum(["general", "consulting", "design", "development", "marketing", "writing", "financial", "legal", "repair", "maintenance", "cleaning", "photography", "education", "health", "logistics", "event", "other"]),
   priority: z.enum(["low", "normal", "high", "urgent"]),
   description: z.string().optional(),
   due_date: z.string().optional(),
