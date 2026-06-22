@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost" | "danger" | "success";
+  variant?: "primary" | "secondary" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
   loading?: boolean;
 }
@@ -16,14 +16,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-[8px] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 disabled:opacity-50 disabled:cursor-not-allowed",
-          variant === "primary" && "bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] shadow-glow",
-          variant === "secondary" && "bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border)] hover:border-[var(--border-active)]",
-          variant === "ghost" && "text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-blue-50/50",
-          variant === "danger" && "bg-[var(--error)] text-white hover:bg-red-600",
-          variant === "success" && "bg-[var(--success)] text-white hover:bg-green-600",
-          size === "sm" && "px-3 py-1.5 text-xs gap-1.5",
-          size === "md" && "px-4 py-2 text-sm gap-2",
+          "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]/30 disabled:opacity-50 disabled:cursor-not-allowed select-none",
+          variant === "primary" && "bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] active:scale-[0.97]",
+          variant === "secondary" && "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 active:bg-zinc-300",
+          variant === "ghost" && "text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-zinc-100",
+          variant === "danger" && "bg-red-500 text-white hover:bg-red-600 active:bg-red-700",
+          size === "sm" && "px-4 py-2 text-xs gap-1.5",
+          size === "md" && "px-5 py-2.5 text-sm gap-2",
           size === "lg" && "px-6 py-3 text-base gap-2.5",
           className
         )}

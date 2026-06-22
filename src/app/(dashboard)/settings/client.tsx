@@ -24,8 +24,7 @@ export default function SettingsClient({ business }: { business: Business }) {
     tax_label: business.tax_label,
     tax_rate: business.tax_rate.toString(),
     invoice_prefix: business.invoice_prefix,
-    paystack_public_key: business.paystack_public_key || "",
-    paystack_secret_key: business.paystack_secret_key || "",
+
   });
 
   const handleSave = async () => {
@@ -69,13 +68,6 @@ export default function SettingsClient({ business }: { business: Business }) {
           <Input label="Invoice Prefix" value={form.invoice_prefix} onChange={(e) => setForm({ ...form, invoice_prefix: e.target.value })} />
           <Input label="Tax Label (e.g. VAT)" value={form.tax_label} onChange={(e) => setForm({ ...form, tax_label: e.target.value })} />
           <Input label="Tax Rate (%)" type="number" step="0.01" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: e.target.value })} />
-        </Card>
-
-        <Card className="p-5 space-y-4">
-          <h2 className="text-sm font-semibold text-[var(--text-primary)]">Paystack Integration</h2>
-          <Input label="Public Key" value={form.paystack_public_key} onChange={(e) => setForm({ ...form, paystack_public_key: e.target.value })} placeholder="pk_live_..." />
-          <Input label="Secret Key" type="password" value={form.paystack_secret_key} onChange={(e) => setForm({ ...form, paystack_secret_key: e.target.value })} placeholder="sk_live_..." />
-          <p className="text-xs text-[var(--text-muted)]">Get your keys from the Paystack dashboard.</p>
         </Card>
 
         <div className="flex justify-end">

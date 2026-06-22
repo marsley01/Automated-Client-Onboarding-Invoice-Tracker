@@ -32,15 +32,15 @@ export default async function ClientPortalPage({ params }: { params: { token: st
       <header className="border-b border-[var(--border)]">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center">
-            <span className="text-white font-bold text-sm">F</span>
+            <span className="text-white font-bold text-sm">M</span>
           </div>
-          <span className="font-medium text-[var(--text-primary)]">{job.businesses?.name || "Dicosis"}</span>
+          <span className="font-medium text-[var(--text-primary)]">{job.businesses?.name || "Mash"}</span>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-6 py-8 space-y-8">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-[var(--text-primary)]">{job.title}</h1>
+          <h1 className="font-display text-3xl font-semibold text-[var(--text-primary)]">{job.title}</h1>
           <p className="text-sm text-[var(--text-muted)] font-mono mt-1">{job.job_number}</p>
         </div>
 
@@ -71,7 +71,6 @@ export default async function ClientPortalPage({ params }: { params: { token: st
                 items={invoice.invoice_items || []}
                 businessName={job.businesses?.name || ""}
                 businessLogo={job.businesses?.logo_url}
-                paystackPublicKey={job.businesses?.paystack_public_key}
                 clientEmail={job.clients?.email || ""}
               />
             </div>

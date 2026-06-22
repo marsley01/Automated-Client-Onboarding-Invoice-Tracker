@@ -10,8 +10,6 @@ export interface Business {
   currency: string;
   tax_label: string;
   tax_rate: number;
-  paystack_public_key: string | null;
-  paystack_secret_key: string | null;
   invoice_prefix: string;
   invoice_counter: number;
   job_counter: number;
@@ -114,7 +112,6 @@ export interface Invoice {
   due_date: string | null;
   notes: string | null;
   terms: string;
-  paystack_reference: string | null;
   last_reminder_sent_at: string | null;
   reminder_count: number;
   created_at: string;
@@ -135,7 +132,7 @@ export interface InvoiceItem {
   created_at: string;
 }
 
-export type PaymentMethod = "paystack" | "mpesa" | "cash" | "bank_transfer";
+export type PaymentMethod = "mpesa" | "cash" | "bank_transfer";
 export type PaymentStatus = "pending" | "successful" | "failed";
 
 export interface Payment {
@@ -144,7 +141,6 @@ export interface Payment {
   amount: number;
   method: PaymentMethod;
   reference: string | null;
-  paystack_data: Record<string, unknown> | null;
   status: PaymentStatus;
   paid_at: string;
   recorded_by: string | null;

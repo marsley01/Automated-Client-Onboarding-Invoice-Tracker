@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Cube, House, Wrench, Users, Gear, CurrencyCircleDollar } from "@phosphor-icons/react";
+import { House, Wrench, Users, Gear, CurrencyCircleDollar, Shield } from "@phosphor-icons/react";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: House },
@@ -11,6 +11,7 @@ const navItems = [
   { label: "Clients", href: "/clients", icon: Users },
   { label: "Invoice Tracker", href: "/invoice-tracker", icon: CurrencyCircleDollar },
   { label: "Settings", href: "/settings", icon: Gear },
+  { label: "Admin", href: "/admin", icon: Shield },
 ];
 
 export default function Sidebar() {
@@ -21,9 +22,9 @@ export default function Sidebar() {
       <div className="p-4 border-b border-[var(--border)]">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-md bg-[var(--primary)] flex items-center justify-center">
-            <Cube weight="bold" className="text-white text-sm" />
+            <span className="text-white font-bold text-sm">M</span>
           </div>
-          <span className="font-display text-lg font-semibold text-[var(--text-primary)]">Dicosis</span>
+          <span className="font-display text-lg font-semibold text-[var(--text-primary)]">Mash</span>
         </Link>
       </div>
       <nav className="flex-1 p-2 space-y-0.5">

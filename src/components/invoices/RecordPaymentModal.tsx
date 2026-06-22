@@ -23,7 +23,7 @@ export default function RecordPaymentModal({ isOpen, onClose, invoiceId, balance
     resolver: zodResolver(recordPaymentSchema),
     defaultValues: {
       amount: balanceDue,
-      method: "paystack",
+      method: "mpesa",
       paid_at: new Date().toISOString().split("T")[0],
     },
   });
@@ -42,7 +42,6 @@ export default function RecordPaymentModal({ isOpen, onClose, invoiceId, balance
           label="Payment Method"
           error={errors.method?.message}
           options={[
-            { value: "paystack", label: "Paystack" },
             { value: "mpesa", label: "M-Pesa" },
             { value: "cash", label: "Cash" },
             { value: "bank_transfer", label: "Bank Transfer" },

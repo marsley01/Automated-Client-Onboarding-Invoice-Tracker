@@ -52,7 +52,7 @@ export const updateStatusSchema = z.object({
 
 export const recordPaymentSchema = z.object({
   amount: z.number().min(0.01, "Amount must be > 0"),
-  method: z.enum(["paystack", "mpesa", "cash", "bank_transfer"]),
+  method: z.enum(["mpesa", "cash", "bank_transfer"]),
   reference: z.string().optional(),
   paid_at: z.string().optional(),
 });

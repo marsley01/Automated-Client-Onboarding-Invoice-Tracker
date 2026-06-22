@@ -88,7 +88,7 @@ export default function JobDetailClient({ job, history, attachments, invoices }:
                   {getCategoryLabel(job.category) !== "General" && (
                     <Badge variant="info">{getCategoryLabel(job.category)}</Badge>
                   )}
-                  <span className={`inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full ${getPriorityColor(job.priority)}`}>
+                  <span className={`inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md ${getPriorityColor(job.priority)}`}>
                     {job.priority}
                   </span>
                 </div>

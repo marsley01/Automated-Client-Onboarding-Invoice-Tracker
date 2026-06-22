@@ -2,19 +2,17 @@
 
 import { formatKES, formatDate, getInvoiceStatusColor } from "@/lib/utils";
 import type { Invoice, InvoiceItem } from "@/types";
-import PaystackButton from "./PaystackButton";
 
 interface ClientInvoiceViewProps {
   invoice: Invoice;
   items: InvoiceItem[];
   businessName: string;
   businessLogo?: string | null;
-  paystackPublicKey?: string | null;
   clientEmail: string;
 }
 
 export default function ClientInvoiceView({
-  invoice, items, businessName, businessLogo, paystackPublicKey, clientEmail,
+  invoice, items, businessName, businessLogo, clientEmail,
 }: ClientInvoiceViewProps) {
   const canPay = ["sent", "partially_paid", "overdue"].includes(invoice.status) && invoice.balance_due > 0;
 
@@ -111,13 +109,9 @@ export default function ClientInvoiceView({
             <p className="text-sm text-[var(--text-muted)] mb-4">
               Outstanding balance: <strong className="text-[var(--text-primary)]">{formatKES(invoice.balance_due)}</strong>
             </p>
-            <PaystackButton
-              amount={invoice.balance_due}
-              email={clientEmail}
-              publicKey={paystackPublicKey}
-              invoiceId={invoice.id}
-              businessId={invoice.business_id}
-            />
+            <p className="text-xs text-[var(--text-muted)]">
+              Contact the business for payment instructions.
+            </p>
           </div>
         )}
       </div>

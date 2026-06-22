@@ -37,13 +37,13 @@ export async function sendInvoiceEmail(params: SendInvoiceEmailParams) {
         <div style="text-align: center; margin: 32px 0;">
           <a href="${payLink}" style="display: inline-block; background: #2563EB; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; box-shadow: 0 2px 8px rgba(37,99,235,0.25);">View & Pay Invoice</a>
         </div>
-        <p style="color: #6B7280; font-size: 14px; text-align: center; margin: 0;">Powered by <strong style="color: #2563EB;">Dicosis</strong></p>
+        <p style="color: #6B7280; font-size: 14px; text-align: center; margin: 0;">Powered by <strong style="color: #2563EB;">Mash</strong></p>
       </div>
     </div>
   `;
 
   return resend.emails.send({
-    from: `${businessName} <invoices@dicosis.app>`,
+    from: `${businessName} <invoices@mash.ke>`,
     to,
     subject: `Invoice ${invoiceNumber} from ${businessName}`,
     html,
@@ -82,13 +82,13 @@ export async function sendReminderEmail(params: SendReminderEmailParams) {
         <div style="text-align: center; margin: 32px 0;">
           <a href="${payLink}" style="display: inline-block; background: #2563EB; color: white; text-decoration: none; padding: 14px 36px; border-radius: 8px; font-weight: 600; box-shadow: 0 2px 8px rgba(37,99,235,0.25);">Pay Now</a>
         </div>
-        <p style="color: #6B7280; font-size: 14px; text-align: center; margin: 0;">Powered by <strong style="color: #2563EB;">Dicosis</strong></p>
+        <p style="color: #6B7280; font-size: 14px; text-align: center; margin: 0;">Powered by <strong style="color: #2563EB;">Mash</strong></p>
       </div>
     </div>
   `;
 
   return resend.emails.send({
-    from: `${businessName} <reminders@dicosis.app>`,
+    from: `${businessName} <reminders@mash.ke>`,
     to,
     subject: `Reminder: Invoice ${invoiceNumber} is ${daysOverdue} days overdue`,
     html,

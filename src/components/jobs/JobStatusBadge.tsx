@@ -18,7 +18,7 @@ const statusStyles: Record<JobStatus, string> = {
 
 export default function JobStatusBadge({ status, className }: JobStatusBadgeProps) {
   return (
-    <span className={cn("inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full border", statusStyles[status], className)}>
+    <span className={cn("inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-md border", statusStyles[status], className)}>
       <span className={cn("w-1.5 h-1.5 rounded-full mr-1.5", {
         "bg-blue-400": status === "received",
         "bg-purple-400": status === "diagnosed",

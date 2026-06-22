@@ -67,11 +67,11 @@ export default function SignUpPage() {
     <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-10 h-10 rounded-lg bg-[var(--primary)] flex items-center justify-center mx-auto mb-3">
-            <span className="text-white font-bold">F</span>
+          <div className="w-10 h-10 rounded-xl bg-[var(--primary)] flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-lg">M</span>
           </div>
-          <h1 className="font-serif text-2xl font-bold text-[var(--text-primary)]">Create your account</h1>
-          <p className="text-sm text-[var(--text-muted)] mt-1">Set up your Dicosis workspace</p>
+          <h1 className="font-display text-2xl font-semibold text-[var(--text-primary)]">Create your account</h1>
+          <p className="text-sm text-[var(--text-muted)] mt-1">Set up your Mash workspace</p>
         </div>
 
         <div className="flex items-center gap-2 mb-6 justify-center">

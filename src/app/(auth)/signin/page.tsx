@@ -38,11 +38,11 @@ export default function SignInPage() {
     <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-10 h-10 rounded-lg bg-[var(--primary)] flex items-center justify-center mx-auto mb-3">
-            <span className="text-white font-bold">F</span>
+          <div className="w-10 h-10 rounded-xl bg-[var(--primary)] flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-lg">M</span>
           </div>
-          <h1 className="font-serif text-2xl font-bold text-[var(--text-primary)]">Welcome back</h1>
-          <p className="text-sm text-[var(--text-muted)] mt-1">Sign in to your Dicosis account</p>
+          <h1 className="font-display text-2xl font-semibold text-[var(--text-primary)]">Welcome back</h1>
+          <p className="text-sm text-[var(--text-muted)] mt-1">Sign in to your Mash account</p>
         </div>
 
         <div className="card-surface-raised p-6">
@@ -62,6 +62,11 @@ export default function SignInPage() {
               {...register("password")}
             />
             {error && <p className="text-sm text-[var(--error)]">{error}</p>}
+            <div className="flex items-center justify-end">
+              <Link href="/forgot-password" className="text-xs text-[var(--text-muted)] hover:text-[var(--primary)] transition-colors">
+                Forgot password?
+              </Link>
+            </div>
             <Button type="submit" className="w-full" loading={isSubmitting}>
               Sign in
             </Button>
@@ -70,7 +75,7 @@ export default function SignInPage() {
 
         <p className="text-center text-sm text-[var(--text-muted)] mt-6">
           Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-[var(--primary)] hover:underline">Sign up</Link>
+          <Link href="/signup" className="text-[var(--primary)] hover:underline font-medium">Sign up</Link>
         </p>
       </div>
     </div>

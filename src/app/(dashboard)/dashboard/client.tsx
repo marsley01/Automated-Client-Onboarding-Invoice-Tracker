@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FileText, Lightning, CurrencyCircleDollar, WarningCircle } from "@phosphor-icons/react";
+import { FileText, Lightning, CurrencyCircleDollar, WarningCircle, UserPlus } from "@phosphor-icons/react";
 import Topbar from "@/components/dashboard/Topbar";
 import StatsCard from "@/components/dashboard/StatsCard";
 import JobStatusBadge from "@/components/jobs/JobStatusBadge";
@@ -23,6 +23,17 @@ interface RecentJob {
   due_date: string | null;
 }
 
+interface RecentSubmission {
+  id: string;
+  job_id: string;
+  job_number: string;
+  job_title: string;
+  client_name: string | null;
+  client_email: string | null;
+  client_phone: string | null;
+  submitted_at: string;
+}
+
 interface DashboardClientProps {
   totalJobs: number;
   activeJobs: number;
@@ -30,10 +41,11 @@ interface DashboardClientProps {
   outstandingBalance: number;
   recentJobs: RecentJob[];
   revenueData: DailyRevenue[];
+  recentSubmissions: RecentSubmission[];
 }
 
 export default function DashboardClient({
-  totalJobs, activeJobs, revenueThisMonth, outstandingBalance, recentJobs, revenueData,
+  totalJobs, activeJobs, revenueThisMonth, outstandingBalance, recentJobs, revenueData, recentSubmissions,
 }: DashboardClientProps) {
   return (
     <div>
@@ -62,8 +74,8 @@ export default function DashboardClient({
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          <div className="xl:col-span-2 space-y-6">
             <Card className="p-5">
               <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-4">Recent Jobs</h2>
               {recentJobs.length === 0 ? (
@@ -93,7 +105,7 @@ export default function DashboardClient({
                           <td className="py-3 text-sm text-[var(--text-muted)]">{job.client_name}</td>
                           <td className="py-3 text-sm"><JobStatusBadge status={job.status} /></td>
                           <td className="py-3 text-sm">
-                            <span className={cn("inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full", getPriorityColor(job.priority))}>
+                            <span className={cn("inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md", getPriorityColor(job.priority))}>
                               {job.priority}
                             </span>
                           </td>
@@ -108,6 +120,41 @@ export default function DashboardClient({
                 </div>
               )}
             </Card>
+
+            {recentSubmissions.length > 0 && (
+              <Card className="p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <UserPlus weight="duotone" className="text-lg text-[var(--primary)]" />
+                  <h2 className="text-sm font-semibold text-[var(--text-primary)]">New Client Submissions</h2>
+                </div>
+                <div className="space-y-3">
+                  {recentSubmissions.map((s) => (
+                    <Link
+                      key={s.id}
+                      href={`/jobs/${s.job_id}`}
+                      className="flex items-start gap-3 p-3 rounded-lg bg-blue-50/40 hover:bg-blue-50 transition-colors group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-[var(--primary)]/10 flex items-center justify-center text-[var(--primary)] font-bold text-xs flex-shrink-0">
+                        {s.client_name?.charAt(0)?.toUpperCase() || "?"}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-[var(--text-primary)] truncate">
+                          {s.client_name || "New client"} submitted details for <span className="text-[var(--primary)]">{s.job_title}</span>
+                        </p>
+                        <p className="text-xs text-[var(--text-muted)] mt-0.5">
+                          {s.client_email && <span>{s.client_email} · </span>}
+                          {s.client_phone && <span>{s.client_phone} · </span>}
+                          {formatDate(s.submitted_at)}
+                        </p>
+                      </div>
+                      <span className="text-xs text-[var(--primary)] opacity-0 group-hover:opacity-100 transition-opacity font-medium mt-1">
+                        View &rarr;
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </Card>
+            )}
           </div>
 
           <div>

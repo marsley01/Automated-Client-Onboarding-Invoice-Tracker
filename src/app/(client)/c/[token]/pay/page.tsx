@@ -14,7 +14,6 @@ export default function ClientPayPage() {
     items: InvoiceItem[];
     businessName: string;
     businessLogo?: string;
-    paystackPublicKey?: string;
     clientEmail: string;
   } | null>(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +29,6 @@ export default function ClientPayPage() {
             items: invoice.invoice_items || [],
             businessName: d.businesses?.name || "",
             businessLogo: d.businesses?.logo_url,
-            paystackPublicKey: d.businesses?.paystack_public_key,
             clientEmail: d.clients?.email || "",
           });
         }
@@ -60,7 +58,7 @@ export default function ClientPayPage() {
       <header className="border-b border-[var(--border)]">
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center">
-            <span className="text-white font-bold text-sm">F</span>
+            <span className="text-white font-bold text-sm">M</span>
           </div>
           <span className="font-medium text-[var(--text-primary)]">{data.businessName}</span>
         </div>
@@ -71,7 +69,6 @@ export default function ClientPayPage() {
           items={data.items}
           businessName={data.businessName}
           businessLogo={data.businessLogo}
-          paystackPublicKey={data.paystackPublicKey}
           clientEmail={data.clientEmail}
         />
       </main>

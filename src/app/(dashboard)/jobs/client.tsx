@@ -113,7 +113,7 @@ export default function JobsClient({ jobs }: JobsClientProps) {
                       <td className="p-4 text-sm text-[var(--text-subtle)]">{getCategoryLabel(job.category)}</td>
                       <td className="p-4"><JobStatusBadge status={job.status} /></td>
                       <td className="p-4">
-                        <span className={cn("inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full", getPriorityColor(job.priority))}>
+                        <span className={cn("inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md", getPriorityColor(job.priority))}>
                           {job.priority}
                         </span>
                       </td>

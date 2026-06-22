@@ -21,10 +21,16 @@ export default async function DashboardPage() {
 
   const businessId = businessUser.business_id;
 
-  const [jobsResult, paymentsResult, invoicesResult] = await Promise.all([
+  const [jobsResult, paymentsResult, invoicesResult, submissionsResult] = await Promise.all([
     supabase.from("jobs").select("id, status, title, job_number, priority, due_date, created_at, client_id, clients(name)").eq("business_id", businessId).order("created_at", { ascending: false }).limit(10),
     supabase.from("payments").select("amount, paid_at").gte("paid_at", new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()),
     supabase.from("invoices").select("balance_due, status").eq("business_id", businessId).in("status", ["sent", "partially_paid", "overdue"]),
+    supabase.from("client_submissions")
+      .select("*, jobs!inner(id, title, job_number, business_id)")
+      .eq("jobs.business_id", businessId)
+      .gte("submitted_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+      .order("submitted_at", { ascending: false })
+      .limit(5),
   ]);
 
   const totalJobs = jobsResult.data?.length || 0;
@@ -59,6 +65,16 @@ export default async function DashboardPage() {
         due_date: j.due_date,
       }))}
       revenueData={revenueByDay}
+      recentSubmissions={(submissionsResult.data || []).map((s: any) => ({
+        id: s.id,
+        job_id: s.job_id,
+        job_number: s.jobs.job_number,
+        job_title: s.jobs.title,
+        client_name: s.client_name,
+        client_email: s.client_email,
+        client_phone: s.client_phone,
+        submitted_at: s.submitted_at,
+      }))}
     />
   );
 }

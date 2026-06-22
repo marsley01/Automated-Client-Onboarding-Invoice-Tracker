@@ -6,7 +6,7 @@ export async function GET(request: Request, { params }: { params: { token: strin
 
   const { data: job } = await ctx.supabaseAdmin
     .from("jobs")
-    .select("*, clients(*), businesses(name, logo_url, paystack_public_key), job_status_history(*)")
+    .select("*, clients(*), businesses(name, logo_url), job_status_history(*)")
     .eq("client_token", params.token)
     .single();
 

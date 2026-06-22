@@ -141,12 +141,12 @@ function SubHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange:
   return (
     <div className="sticky top-14 z-40 border-b border-zinc-200/50 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between px-6 lg:px-10">
-        <div className="flex items-center gap-1.5 rounded-full bg-zinc-100 p-1">
+        <div className="flex items-center gap-1.5 rounded-lg bg-zinc-100 p-1">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => onTabChange(t.id)}
-              className={`relative rounded-full px-5 py-1.5 text-sm font-medium transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
+              className={`relative rounded-lg px-5 py-1.5 text-sm font-medium transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 ${
                 activeTab === t.id
                   ? "bg-white text-[#2563EB] shadow-[0_1px_3px_rgba(37,99,235,0.08)]"
                   : "text-zinc-500 hover:text-zinc-800"
@@ -157,11 +157,11 @@ function SubHeader({ activeTab, onTabChange }: { activeTab: string; onTabChange:
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-zinc-500 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 hover:text-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30">
+          <button className="flex items-center gap-2 rounded-lg px-4 py-1.5 text-sm text-zinc-500 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 hover:text-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30">
             <FileText size={15} weight="light" />
             <span className="hidden sm:inline">Log</span>
           </button>
-          <button className="flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-zinc-500 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 hover:text-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30">
+          <button className="flex items-center gap-2 rounded-lg px-4 py-1.5 text-sm text-zinc-500 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-zinc-100 hover:text-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30">
             <Robot size={15} weight="light" />
             <span className="hidden sm:inline">Automation</span>
           </button>

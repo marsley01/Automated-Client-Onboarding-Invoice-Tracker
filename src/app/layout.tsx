@@ -20,8 +20,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Dicosis — Automated Client Onboarding & Invoice Tracker",
-  description: "Get paid faster. Track every job. Dicosis gives your agency or repair shop a professional client portal, automated invoices, and real-time status tracking.",
+  title: "Mash — Connect Clients & Get Paid",
+  description: "Mash connects your business with clients. Share a link, get their details, track progress, send invoices, and get paid. For Kenyan agencies, freelancers, and repair shops.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -31,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ToastProvider>
           {children}
         </ToastProvider>
-        <script src="https://js.paystack.co/v1/inline.js" />
       </body>
     </html>
   );
