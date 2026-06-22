@@ -1,67 +1,59 @@
-import { NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseContext } from "@/lib/supabase/with-auth";
 
 export async function POST(request: Request) {
-  try {
-    const { name, email, password, business_name, business_type, phone, city } = await request.json();
+  const { data: ctx, error } = await createSupabaseContext(request, { auth: "none" });
+  if (error) return Response.json({ message: error.message }, { status: error.status });
 
-    if (!name || !email || !password || !business_name) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
+  const { name, email, password, business_name, phone, city } = await request.json();
 
-    const supabase = createAdminClient();
-
-    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true,
-      user_metadata: { full_name: name },
-    });
-
-    if (authError) {
-      return NextResponse.json({ error: authError.message }, { status: 400 });
-    }
-
-    const userId = authData.user.id;
-
-    const { data: businessData, error: bizError } = await supabase
-      .from("businesses")
-      .insert({
-        name: business_name,
-        email,
-        phone: phone || null,
-        city: city || "Nairobi",
-        currency: "KES",
-      })
-      .select()
-      .single();
-
-    if (bizError) {
-      await supabase.auth.admin.deleteUser(userId);
-      return NextResponse.json({ error: bizError.message }, { status: 500 });
-    }
-
-    const { error: buError } = await supabase
-      .from("business_users")
-      .insert({ business_id: businessData.id, user_id: userId, role: "owner" });
-
-    if (buError) {
-      await supabase.from("businesses").delete().eq("id", businessData.id);
-      await supabase.auth.admin.deleteUser(userId);
-      return NextResponse.json({ error: buError.message }, { status: 500 });
-    }
-
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (signInError) {
-      return NextResponse.json({ error: signInError.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, business_id: businessData.id });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
+  if (!name || !email || !password || !business_name) {
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
+
+  const { data: authData, error: authError } = await ctx.supabaseAdmin.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { full_name: name },
+  });
+
+  if (authError) return Response.json({ error: authError.message }, { status: 400 });
+
+  const userId = authData.user.id;
+
+  const { data: businessData, error: bizError } = await ctx.supabaseAdmin
+    .from("businesses")
+    .insert({
+      name: business_name,
+      email,
+      phone: phone || null,
+      city: city || "Nairobi",
+      currency: "KES",
+    })
+    .select()
+    .single();
+
+  if (bizError) {
+    await ctx.supabaseAdmin.auth.admin.deleteUser(userId);
+    return Response.json({ error: bizError.message }, { status: 500 });
+  }
+
+  const { error: buError } = await ctx.supabaseAdmin
+    .from("business_users")
+    .insert({ business_id: businessData.id, user_id: userId, role: "owner" });
+
+  if (buError) {
+    await ctx.supabaseAdmin.from("businesses").delete().eq("id", businessData.id);
+    await ctx.supabaseAdmin.auth.admin.deleteUser(userId);
+    return Response.json({ error: buError.message }, { status: 500 });
+  }
+
+  const { error: signInError } = await ctx.supabaseAdmin.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (signInError) return Response.json({ error: signInError.message }, { status: 500 });
+
+  return Response.json({ success: true, business_id: businessData.id });
 }

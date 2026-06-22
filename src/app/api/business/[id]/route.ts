@@ -1,27 +1,18 @@
-import { NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseContext } from "@/lib/supabase/with-auth";
 
 export async function PATCH(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const supabase = createAdminClient();
-    const body = await request.json();
+  const { data: ctx, error } = await createSupabaseContext(request, { auth: "user" });
+  if (error) return Response.json({ message: error.message }, { status: error.status });
 
-    const authHeader = request.headers.get("Authorization")?.replace("Bearer ", "");
-    if (!authHeader) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const body = await request.json();
 
-    const { data: { user } } = await supabase.auth.getUser(authHeader);
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { data, error: err } = await ctx.supabase
+    .from("businesses")
+    .update({ ...body, updated_at: new Date().toISOString() })
+    .eq("id", params.id)
+    .select()
+    .single();
 
-    const { data, error } = await supabase
-      .from("businesses")
-      .update({ ...body, updated_at: new Date().toISOString() })
-      .eq("id", params.id)
-      .select()
-      .single();
-
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json(data);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  if (err) return Response.json({ error: err.message }, { status: 500 });
+  return Response.json(data);
 }

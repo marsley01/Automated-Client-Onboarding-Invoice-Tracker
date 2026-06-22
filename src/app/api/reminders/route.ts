@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendReminderEmail } from "@/lib/resend";
 import { formatDate } from "@/lib/utils";
@@ -7,7 +6,7 @@ export async function POST(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization")?.replace("Bearer ", "");
     if (authHeader !== process.env.CRON_SECRET) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const supabase = createAdminClient();
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
       .lt("due_date", new Date().toISOString().split("T")[0]);
 
     if (!overdueInvoices || overdueInvoices.length === 0) {
-      return NextResponse.json({ success: true, sent: 0 });
+      return Response.json({ success: true, sent: 0 });
     }
 
     let sentCount = 0;
@@ -68,8 +67,8 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({ success: true, sent: sentCount });
+    return Response.json({ success: true, sent: sentCount });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return Response.json({ error: err.message }, { status: 500 });
   }
 }

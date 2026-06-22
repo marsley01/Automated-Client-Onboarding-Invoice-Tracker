@@ -1,39 +1,30 @@
-import { NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseContext } from "@/lib/supabase/with-auth";
 
 export async function PATCH(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const supabase = createAdminClient();
-    const { status, notes } = await request.json();
+  const { data: ctx, error } = await createSupabaseContext(request, { auth: "user" });
+  if (error) return Response.json({ message: error.message }, { status: error.status });
 
-    const authHeader = request.headers.get("Authorization")?.replace("Bearer ", "");
-    if (!authHeader) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { status, notes } = await request.json();
 
-    const { data: { user } } = await supabase.auth.getUser(authHeader);
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { data: job } = await ctx.supabase.from("jobs").select("status").eq("id", params.id).single();
+  if (!job) return Response.json({ error: "Job not found" }, { status: 404 });
 
-    const { data: job } = await supabase.from("jobs").select("status").eq("id", params.id).single();
-    if (!job) return NextResponse.json({ error: "Job not found" }, { status: 404 });
+  const { error: updateError } = await ctx.supabase
+    .from("jobs")
+    .update({ status, updated_at: new Date().toISOString() })
+    .eq("id", params.id);
 
-    const { error: updateError } = await supabase
-      .from("jobs")
-      .update({ status, updated_at: new Date().toISOString() })
-      .eq("id", params.id);
+  if (updateError) return Response.json({ error: updateError.message }, { status: 500 });
 
-    if (updateError) return NextResponse.json({ error: updateError.message }, { status: 500 });
+  const { error: historyError } = await ctx.supabase.from("job_status_history").insert({
+    job_id: params.id,
+    from_status: job.status,
+    to_status: status,
+    notes: notes || null,
+    changed_by: ctx.userClaims!.id,
+  });
 
-    const { error: historyError } = await supabase.from("job_status_history").insert({
-      job_id: params.id,
-      from_status: job.status,
-      to_status: status,
-      notes: notes || null,
-      changed_by: user.id,
-    });
+  if (historyError) return Response.json({ error: historyError.message }, { status: 500 });
 
-    if (historyError) return NextResponse.json({ error: historyError.message }, { status: 500 });
-
-    return NextResponse.json({ success: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  return Response.json({ success: true });
 }
